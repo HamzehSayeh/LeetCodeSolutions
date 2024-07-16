@@ -7,11 +7,11 @@ class Solution {
             if(candies[i]>maxNumberOfCandies)
                 maxNumberOfCandies=candies[i];
         }
-        for(int i=0;i<numberOfKids;i++){
-            if(candies[i]+extraCandies>=maxNumberOfCandies)
-            result.add(i,true);
+        for(int candy:candies){
+            if(candy+extraCandies>=maxNumberOfCandies)
+            result.add(true);
             else
-            result.add(i,false);
+            result.add(false);
         }
         return result;
     }
