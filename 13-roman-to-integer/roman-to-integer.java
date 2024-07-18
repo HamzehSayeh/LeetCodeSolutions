@@ -13,24 +13,12 @@ class Solution {
 
         for (int i = s.length() - 1; i >= 0; i--) {
             int currentRomanNumeralValue = romanNumerals.get(s.charAt(i));
-            int previousRomanNumeralValue;
+            int previousRomanNumeralValue = (i - 1 >= 0) ? romanNumerals.get(s.charAt(i - 1)) : 0;
 
-            romanNumeralTotal = romanNumeralTotal + currentRomanNumeralValue;
-            if (i - 1 < 0) {
-                return romanNumeralTotal;
-            } else
-                previousRomanNumeralValue = romanNumerals.get((s.charAt(i - 1)));
+            romanNumeralTotal += currentRomanNumeralValue;
 
-            if ((currentRomanNumeralValue == 5 || currentRomanNumeralValue == 10) && previousRomanNumeralValue == 1) {
-                romanNumeralTotal = romanNumeralTotal - 1;
-                i--;
-            } else if ((currentRomanNumeralValue == 50 || currentRomanNumeralValue == 100)
-                    && previousRomanNumeralValue == 10) {
-                romanNumeralTotal = romanNumeralTotal - 10;
-                i--;
-            } else if ((currentRomanNumeralValue == 500 || currentRomanNumeralValue == 1000)
-                    && previousRomanNumeralValue == 100) {
-                romanNumeralTotal = romanNumeralTotal - 100;
+            if (currentRomanNumeralValue > previousRomanNumeralValue) {
+                romanNumeralTotal -= previousRomanNumeralValue;
                 i--;
             }
         }
