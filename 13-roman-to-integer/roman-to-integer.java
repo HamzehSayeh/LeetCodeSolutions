@@ -1,6 +1,6 @@
 class Solution {
     public int romanToInt(String s) {
-        Map<Character, Integer> romanNumerals = new HashMap<>();
+       Map<Character, Integer> romanNumerals = new HashMap<>();
         int romanNumeralTotal = 0;
 
         romanNumerals.put('I', 1);
@@ -12,16 +12,15 @@ class Solution {
         romanNumerals.put('M', 1000);
 
         for (int i = s.length() - 1; i >= 0; i--) {
-
             int currentRomanNumeralValue = romanNumerals.get(s.charAt(i));
             int previousRomanNumeralValue = (i - 1 >= 0) ? romanNumerals.get(s.charAt(i - 1)) : 0;
 
             romanNumeralTotal += currentRomanNumeralValue;
+
             if (currentRomanNumeralValue > previousRomanNumeralValue) {
                 romanNumeralTotal -= previousRomanNumeralValue;
                 i--;
             }
-
         }
         return romanNumeralTotal;
     }
