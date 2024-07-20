@@ -2,7 +2,7 @@ class Solution {
     public String convert(String s, int numRows) {
         int characterCount = 0;
         int length = s.length();
-        char[][] zigzagString = new char[numRows][1000];
+        char[][] zigzagString = new char[numRows][500];
         int row = 0;
         int column = 0;
         StringBuilder result = new StringBuilder();
