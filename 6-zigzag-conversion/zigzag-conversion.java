@@ -2,31 +2,45 @@ class Solution {
     public String convert(String s, int numRows) {
         int characterCount = 0;
         int length = s.length();
-        char[][] zigzagString = new char[numRows][500];
+
+        if (numRows < 2) {
+            return s;
+        }
+
+        int cycleLength = numRows + numRows - 2;
+        int fullCycles = length / cycleLength;
+        int remainder = length % cycleLength;
+
+        int numColumns = fullCycles * (numRows - 1);
+        if (remainder > 0) {
+            if (remainder <= numRows) {
+                numColumns += 1;
+            } else {
+                numColumns += 1 + (remainder - numRows);
+            }
+        }
+        char[][] zigzagString = new char[numRows][numColumns];
         int row = 0;
         int column = 0;
         StringBuilder result = new StringBuilder();
 
         if (numRows < 2) {
-            for (int i = 0; i < s.length(); i++, characterCount++) {
-                result.append(s.charAt(characterCount));
-            }
+            return s;
         }
 
-        else {
-            while (characterCount < length) {
-                for (; row < numRows && characterCount < length; row++, characterCount++) {
-                    zigzagString[row][column] = s.charAt(characterCount);
-                }
-                row -= 2;
-                column++;
-                for (; row >= 0 && characterCount < length; row--, column++, characterCount++) {
-                    zigzagString[row][column] = s.charAt(characterCount);
-                }
-                row += 2;
-                column--;
+        while (characterCount < length) {
+            for (; row < numRows && characterCount < length; row++, characterCount++) {
+                zigzagString[row][column] = s.charAt(characterCount);
             }
+            row -= 2;
+            column++;
+            for (; row >= 0 && characterCount < length; row--, column++, characterCount++) {
+                zigzagString[row][column] = s.charAt(characterCount);
+            }
+            row += 2;
+            column--;
         }
+
         characterCount = 0;
         for (int i = 0; i < numRows; i++)
             for (int j = 0; j < zigzagString[i].length; j++, characterCount++) {
