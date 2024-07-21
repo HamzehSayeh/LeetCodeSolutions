@@ -10,7 +10,7 @@ class Solution {
                 return false;
             if (i + nums[i] > maxLocation)
                 maxLocation = i + nums[i];
-            if (maxLocation == nums.length - 1)
+            if (maxLocation == length - 1)
                 return true;
         }
         return true;
