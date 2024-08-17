@@ -1,43 +1,43 @@
+public class DoublyLinkedList {
+    String url;
+    DoublyLinkedList next;
+    DoublyLinkedList prev;
+
+    public DoublyLinkedList(String url) {
+        this.url = url;
+    }
+}
+
 class BrowserHistory {
-    String tab;
-    Stack<String> backward = new Stack<>();
-    Stack<String> forward = new Stack<>();
+    DoublyLinkedList tab;
 
     public BrowserHistory(String homepage) {
-        tab = homepage;
+        tab = new DoublyLinkedList(homepage);
     }
 
     public void visit(String url) {
-        if (tab != null)
-            backward.push(tab);
-        tab = url;
-        forward.clear();
+        DoublyLinkedList newTab = new DoublyLinkedList(url);
+        tab.next = newTab;
+        newTab.prev = tab;
+        tab = newTab;
 
     }
 
     public String back(int steps) {
-        while (steps > 0) {
-            if (backward.empty())
-                break;
-            forward.push(tab);
-            tab = backward.pop();
+        while (steps > 0 && tab.prev != null) {
+            tab = tab.prev;
             steps--;
-
         }
-        return tab;
+        return tab.url;
 
     }
 
     public String forward(int steps) {
-        while (steps > 0) {
-            if (forward.empty())
-                break;
-            backward.push(tab);
-            tab = forward.pop();
+        while (steps > 0 && tab.next != null) {
+            tab = tab.next;
             steps--;
-
         }
-        return tab;
+        return tab.url;
     }
 }
 
